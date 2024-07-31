@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/features/authenticaion/controllers/forgetPassword_controller/forget_password_controller.dart';
 import 'package:e_commerce_app/features/authenticaion/screens/password_configuration/reset_password.dart';
+import 'package:e_commerce_app/utils/validators/validation.dart';
 
 import '../../../../utils/constants/consts.dart';
 
@@ -7,6 +9,7 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -21,15 +24,23 @@ class ForgetPassword extends StatelessWidget {
             SizedBox(height: TSizes.spaceBtwSections * 2),
 
             ///Text Fileds
-            TextFormField(
-              decoration: InputDecoration(labelText: TTexts.email , prefixIcon: Icon(Iconsax.direct_right)),
+            Form(
+              key: controller.forgetPasswordFormKey,
+              child: TextFormField(
+                controller: controller.email,
+                validator: TValidator.validateEmail,
+                decoration: InputDecoration(labelText: TTexts.email ,
+                    prefixIcon: Icon(Iconsax.direct_right)),
+              ),
             ),
             SizedBox(height: TSizes.spaceBtwSections),
 
 
             ///Submit Button
             SizedBox(width: double.infinity, child: ElevatedButton(onPressed: (){
-              Get.off(() => ResetPassword());
+              controller.sendPasswordResetEmail();
+
+              // Get.off(() => ResetPassword(email: '',));
             }, child: Text(TTexts.submit)),)
 
           ],

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "275379182900",
+    "project_id": "e-commcre-app",
+    "storage_bucket": "e-commcre-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275379182900:android:f074c3cebfc47f28d79961",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRC7EJDQ60uJI5zyMPW26cmCCcANfEyaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

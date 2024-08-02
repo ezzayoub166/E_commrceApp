@@ -18,6 +18,7 @@ class AuthenticationRepository extends GetxController {
 
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+  User? get authUser => _auth.currentUser;
 
   ///Called from main.dart on app lunch
   @override
@@ -94,6 +95,7 @@ class AuthenticationRepository extends GetxController {
       final GoogleSignInAuthentication? googleAuth = await userAccount?.authentication;
 
       //Create a new Credential
+
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,

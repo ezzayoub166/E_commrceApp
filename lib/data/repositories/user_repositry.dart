@@ -1,4 +1,5 @@
 
+import 'package:e_commerce_app/data/repositories/authentication_repository.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
 
 
@@ -9,6 +10,9 @@ class UserRepository extends GetxController{
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   final String collectionNameUsers = 'Users';
+
+  final _currentAuthUser = AuthenticationRepository.instance.authUser;
+
 
   ///Function to save user data to fireStore
 
@@ -28,5 +32,81 @@ class UserRepository extends GetxController{
      }
 
    }
+
+   ///Function to fetch user details based on user ID
+
+  Future<UserModel> fetchUserDetails() async {
+    try {
+      final documentSnapshot = await _db.collection(collectionNameUsers).doc(_currentAuthUser?.uid).get();
+      if (documentSnapshot.exists) {
+        return UserModel.fromSnapshot(documentSnapshot);
+      } else {
+        return UserModel.empty();
+      }
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong. Please try again';
+    }
+  }
+
+  ///Function to update user Data in FireStore
+  Future<void> updateUserDetails(UserModel updateUser)async {
+    try {
+      await _db.collection(collectionNameUsers).doc(updateUser.id).update(updateUser.toJson());
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong. Please try again';
+    }
+  }
+
+  ///Function to update any filed in Specific users Collection
+  Future<void> updateStringFiled(Map<String , dynamic> json)async {
+    try {
+      await _db.collection(collectionNameUsers).doc(_currentAuthUser?.uid).update(json);
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong. Please try again';
+    }
+  }
+
+  ///Function to update user Data in fireStore
+  Future<void> removeUserRecord(String userID)async {
+    try {
+      await _db.collection(collectionNameUsers).doc(userID).delete();
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong. Please try again';
+    }
+  }
+
+
 
 }

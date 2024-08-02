@@ -5,7 +5,33 @@ import 'package:e_commerce_app/utils/loader/laoders.dart';
 class UserController extends GetxController{
   static UserController get instance => Get.find();
 
+  final profileLoading =  false.obs;
+  Rx<UserModel> user = UserModel.empty().obs;
   final userRepository = Get.put(UserRepository());
+
+
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    fetchUserRecord();
+  }
+
+  ///Fetch User Record
+  Future<void> fetchUserRecord()async {
+    try{
+      profileLoading.value = true;
+      final user = await userRepository.fetchUserDetails();
+      this.user(user);
+      profileLoading.value = false;
+
+    }catch(error){
+      user(UserModel.empty());
+    }finally{
+      profileLoading.value = false;
+    }
+  }
 
   ///save user Record from any Registration Provider
    Future<void> saveUserRecord(UserCredential? userCredential)async{

@@ -1,6 +1,10 @@
 
+import 'dart:io';
+
 import 'package:e_commerce_app/data/repositories/authentication_repository.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class UserRepository extends GetxController{
@@ -106,6 +110,26 @@ class UserRepository extends GetxController{
       throw 'something went wrong. Please try again';
     }
   }
+
+  ///Upload any image
+   Future<String> uploadImage(String path , XFile image)async{
+      try {
+        final ref = FirebaseStorage.instance.ref(path).child(image.name);
+        await ref.putFile(File(image.path));
+        final url = await ref.getDownloadURL(); // use this url to display this image ..
+        return url;
+     } on FirebaseAuthException catch (e) {
+       throw TFirebaseAuthException(e.code).message;
+     } on FirebaseException catch (e) {
+       throw TFirebaseException(e.code).message;
+     } on FormatException catch (_) {
+       throw TFormatException();
+     } on PlatformException catch (e) {
+       throw TPlatformException(e.code).message;
+     } catch (e) {
+       throw 'something went wrong. Please try again';
+     }
+   }
 
 
 

@@ -11,13 +11,13 @@ class TProfileUserTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserController());
+    final controller = UserController.instance;
     return ListTile(
       leading: TCircularImage(image: TImages.user ,
-        width: 50,
-        height: 50,
-        padding: EdgeInsets.zero,
-      ),
+          width: 50,
+          height: 50,
+          padding: EdgeInsets.zero,
+        ),
       title: Text(controller.user.value.fullName, style: Theme.of(context).textTheme.headlineSmall!.apply(color:Colors.white),),
       subtitle: Text(controller.user.value.email, style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),),
       trailing: IconButton(onPressed: (){},icon: Icon(Iconsax.edit , color: TColors.white,),),

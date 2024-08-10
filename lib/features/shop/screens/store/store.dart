@@ -2,6 +2,7 @@ import 'package:e_commerce_app/common/widgets/app_bar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/app_bar/tabbar.dart';
 import 'package:e_commerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/store/widgets/category_tab.dart';
 import '../../../../common/widgets/brand/brand_card.dart';
 import '../../../../common/widgets/brand/brand_show_case.dart';
@@ -14,8 +15,9 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
+    final categories = CategoryController.instance.featuredCategories;
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         appBar: TAppBar(
           title: Text(
@@ -72,35 +74,14 @@ class StoreScreen extends StatelessWidget {
                     ),
 
                     /// Tabs ---
-                    bottom: TTabBar(tabs: [
-                      Tab(
-                        child: Text('Sports'),
-                      ),
-                      Tab(
-                        child: Text('Furniture'),
-                      ),
-                      Tab(
-                        child: Text('Electronics'),
-                      ),
-                      Tab(
-                        child: Text('Clothes'),
-                      ),
-                      Tab(
-                        child: Text('Cosmetics'),
-                      ),
-                    ]))
+                    bottom: TTabBar(tabs: categories.map((category) => Tab(child: Text(category.name))).toList()
+                    ))
               ];
             },
             body: TabBarView(
-                children: [
-                  CategoryTab(),
-                  CategoryTab(),
-                  CategoryTab(),
-                  CategoryTab(),
-                  CategoryTab(),
-
-
-            ])),
+                children:  categories.map((category) => CategoryTab(category: category)).toList()
+            
+            )),
       ),
     );
   }

@@ -1,11 +1,14 @@
 import 'package:e_commerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/widgets/products/prodcust_card/product_card_vertical.dart';
+import 'package:e_commerce_app/features/shop/models/category_model.dart';
 
 import '../../../../../common/widgets/brand/brand_show_case.dart';
 import '../../../../../utils/constants/consts.dart';
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key});
+
+  final CategoryModel category;
+  const CategoryTab({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {

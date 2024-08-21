@@ -1,9 +1,17 @@
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
 
+import '../../features/shop/models/banner_model.dart';
 import '../constants/image_strings.dart';
 
 class TDummyData{
   ///Banners
+ static final List<BannerModel> banners = [
+   // BannerModel(imageUrl: TImages.banner1, targetScreen: TRouts, active: active)
+   
+   
+   
+ ];
+
   ///User
   ///Cart
   ///Order

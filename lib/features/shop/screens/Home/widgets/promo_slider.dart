@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/features/shop/controllers/banner_controller.dart';
 import 'package:e_commerce_app/features/shop/controllers/home_controller.dart';
 
 import '../../../../../common/widgets/images/t_rounded_image.dart';
@@ -6,17 +7,16 @@ import '../../../../../utils/constants/consts.dart';
 
 class TPromoSlider extends StatelessWidget {
   const TPromoSlider({
-    super.key, required this.banners,
+    super.key
   });
 
-  final List<String> banners ;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.put(BannerController());
     return Column(
       children: [
-        CarouselSlider(items: banners.map((url) => TRoundedImage(imageUrl: url)).toList(),
+        CarouselSlider(items: controller.banners.map((banner) => TRoundedImage(imageUrl: banner.imageUrl,isNetworkImage: true,onPressed: () => Get.toNamed(banner.targetScreen),)).toList(),
           options: CarouselOptions(
               viewportFraction: 0.8,
             onPageChanged: (index , _) => controller.updatePageIndicator(index)
@@ -28,7 +28,7 @@ class TPromoSlider extends StatelessWidget {
           child: Obx(() => Row(
             mainAxisSize: MainAxisSize.min ,
             children: [
-              for (int i = 0; i < banners.length; i++)
+              for (int i = 0; i < controller.banners.length; i++)
                 TCircularContainer(
                   width: 20,
                   height: 4,

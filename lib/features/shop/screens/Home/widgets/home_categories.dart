@@ -32,7 +32,9 @@ class THomeCategories extends StatelessWidget {
                   Get.to(() => SubCategoryScreen());
                 },
                 image: category.image,
-                title: 'Shoes',);
+                title: category.name,
+
+              );
             }),
       );}
     );

@@ -14,6 +14,7 @@ class CategoryController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    fetchCategories();
 
     super.onInit();
   }

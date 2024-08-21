@@ -5,7 +5,6 @@ import 'package:e_commerce_app/common/widgets/products/cart/cart_menu_icon.dart'
 import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/store/widgets/category_tab.dart';
 import '../../../../common/widgets/brand/brand_card.dart';
-import '../../../../common/widgets/brand/brand_show_case.dart';
 import '../../../../utils/constants/consts.dart';
 
 

@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../../utils/constants/consts.dart';
+import '../shimmer/shimmer.dart';
 
 class TVerticalImageText extends StatelessWidget {
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool isNetWorkImage ;
+  final BoxFit fit;
+  final Color? overlayColor;
 
   const TVerticalImageText({
     super.key,
@@ -12,7 +18,8 @@ class TVerticalImageText extends StatelessWidget {
     required this.title,
     this.textColor = TColors.white,
     this.backgroundColor ,
-    this.onTap,
+    this.onTap,  this.isNetWorkImage = true,
+    this.fit = BoxFit.cover, this.overlayColor,
   });
 
 
@@ -34,10 +41,13 @@ class TVerticalImageText extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Center(
-                child: Image(
+                child: isNetWorkImage ? CachedNetworkImage(imageUrl: image,fit: fit,color: overlayColor,
+                  progressIndicatorBuilder: (context, url , downloadProgress) => TShimmerEffect(width: 55, height: 55),
+                  errorWidget: (context, url , error) => Icon(Icons.error) ,
+                ) : Image(
+                  fit: fit,
                   image: AssetImage(image),
-                  fit: BoxFit.cover,
-                  color: isDark ? TColors.light : TColors.dark,
+                  color: overlayColor,
                 ),
               ),
             ),

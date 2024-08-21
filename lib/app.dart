@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/bindings/GeneralBindings.dart';
 import 'package:e_commerce_app/features/authenticaion/screens/onboarding/onboarding.dart';
+import 'package:e_commerce_app/routes/app_routes.dart';
 import 'package:e_commerce_app/utils/theme/theme.dart';
 import 'package:e_commerce_app/utils/theme/widget_themes/elevated_button_theme.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
       darkTheme:TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       initialBinding: GeneralBindings(),
+      getPages: AppRoutes.pages,
       home: OnboardingScreen()
     );
   }

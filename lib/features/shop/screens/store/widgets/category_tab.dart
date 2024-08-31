@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/widgets/products/prodcust_card/product_card_vertical.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 
 import '../../../../../common/widgets/brand/brand_show_case.dart';
 import '../../../../../utils/constants/consts.dart';
@@ -45,7 +46,7 @@ class CategoryTab extends StatelessWidget {
               ),
               SizedBox(height: TSizes.spaceBtwItems),
               TGridLayout(itemsCount: 4, itemBuilder: (_,index){
-                return TProductCardVertical();
+                return TProductCardVertical(product: ProductModel.empty(),);
               }),
               SizedBox(height: TSizes.spaceBtwSections),
             ],

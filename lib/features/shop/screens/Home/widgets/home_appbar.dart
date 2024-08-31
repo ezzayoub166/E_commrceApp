@@ -1,9 +1,12 @@
+import 'package:e_commerce_app/data/repositories/product_repository.dart';
 import 'package:e_commerce_app/features/personlization/controllers/user_controller/user_controller.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
 
 import '../../../../../common/widgets/app_bar/appbar.dart';
 import '../../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../../common/widgets/shimmer/shimmer.dart';
+import '../../../../../utils/data/dummy_data.dart';
+import '../../cart/cart_screen.dart';
 
 class THomeAppBar extends StatelessWidget {
   const THomeAppBar({
@@ -13,6 +16,7 @@ class THomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UserController());
+    // final productRepo = Get.put(ProductRepository());
     return TAppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,8 +48,9 @@ class THomeAppBar extends StatelessWidget {
         ),
         showBackArrow: false,
         actions: [
-          TCartCounterIcon(
-            onPressed: () {},
+          TCartCounterIcon(onPressed: (){
+            Get.to(() => CartScreen());
+          },
             iconColor: TColors.white,
           )
         ],

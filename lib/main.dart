@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:e_commerce_app/data/repositories/authentication_repository.dart';
+import 'package:e_commerce_app/data/repositories/product_repository.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
+import 'package:e_commerce_app/utils/data/dummy_data.dart';
 import 'package:e_commerce_app/utils/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,10 @@ import 'package:get_storage/get_storage.dart';
 import 'app.dart';
 
 Future<void> main() async{
+   // final productRepository = Get.put(ProductRepository());
    final WidgetsBinding widgetsBinding =   WidgetsFlutterBinding.ensureInitialized();
+
+
    /// GetX local Storage
    await GetStorage.init();
    /// Await splash until other items loaded

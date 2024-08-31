@@ -9,8 +9,8 @@ class BrandModel {
       {required this.id,
       required this.name,
       required this.image,
-      this.isFeatured,
-      this.productCont});
+      this.isFeatured = false,
+      this.productCont = 0});
 
   ///Empty Helper Function.
   static BrandModel empty() => BrandModel(id: '', name: '', image: '');

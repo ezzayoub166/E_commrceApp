@@ -3,6 +3,9 @@ import 'package:e_commerce_app/features/shop/screens/Home/home.dart';
 import 'package:e_commerce_app/features/shop/screens/store/store.dart';
 import 'package:e_commerce_app/features/shop/screens/wishlist/wishlist.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
+import 'package:e_commerce_app/utils/data/dummy_data.dart';
+
+import 'data/repositories/product_repository.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -37,6 +40,12 @@ class NavigationMenu extends StatelessWidget {
 }
 class NavigationMenuController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+
+  }
 
   final screens = [
     HomeScreen(),

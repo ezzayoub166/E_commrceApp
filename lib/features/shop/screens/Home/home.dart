@@ -1,4 +1,6 @@
 import 'package:e_commerce_app/common/widgets/products/prodcust_card/product_card_vertical.dart';
+import 'package:e_commerce_app/common/widgets/shimmer/vertical_product_shimmer.dart';
+import 'package:e_commerce_app/features/shop/controllers/product_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/Home/widgets/promo_slider.dart';
 import 'package:e_commerce_app/features/shop/screens/all_products/all_products.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
@@ -12,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -72,12 +75,21 @@ class HomeScreen extends StatelessWidget {
                     TSectionHeader(title: 'Popular Products'),
                     SizedBox(height: TSizes.spaceBtwItems),
                     /// --- Popular Products ---
-                    TGridLayout(
-                      itemsCount: 4,
-                      mainAxisExtent: 288,
-                      itemBuilder: (BuildContext, int) {
-                        return TProductCardVertical();
-                      },
+                    Obx(
+                      (){
+                        // print(controller.featuredProducts);
+                        if (controller.isLoading.value) return TVerticalProductShimmer();
+                        if(controller.featuredProducts.isEmpty){
+                          return Center(child: Text('No Data Found!',style:Theme.of(context).textTheme.bodyMedium));
+                        }
+                        return TGridLayout(
+                          itemsCount: controller.featuredProducts.length,
+                          mainAxisExtent: 288,
+                          itemBuilder: (_, int index) {
+                            return TProductCardVertical(product: controller.featuredProducts[index],);
+                          },
+                        );
+                      } ,
                     ),
                     /// --- Popular Products ---
                   ],

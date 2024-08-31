@@ -2,9 +2,12 @@ import 'package:e_commerce_app/common/widgets/app_bar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/icon/t_cricular_icon.dart';
 import 'package:e_commerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/widgets/products/prodcust_card/product_card_vertical.dart';
+import 'package:e_commerce_app/data/repositories/product_repository.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/screens/Home/home.dart';
 
 import '../../../../utils/constants/consts.dart';
+import '../../../../utils/data/dummy_data.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
@@ -18,7 +21,8 @@ class WishlistScreen extends StatelessWidget {
         style: Theme.of(context).textTheme.headlineMedium,
       ),
       actions: [
-        TCircularIcon(icon: Iconsax.add , onPressed: (){Get.to(const HomeScreen());},)
+        TCircularIcon(icon: Iconsax.add , onPressed: ()async{
+          Get.to(const HomeScreen());},)
       ],
       ),
       body: SingleChildScrollView(
@@ -26,8 +30,8 @@ class WishlistScreen extends StatelessWidget {
           padding: EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
-              TGridLayout(itemsCount: 4, itemBuilder: (_,index){
-                return TProductCardVertical();
+              TGridLayout(itemsCount: 0, itemBuilder: (_,index){
+                return TProductCardVertical(product: ProductModel.empty(),);
               })
             ],
           ),

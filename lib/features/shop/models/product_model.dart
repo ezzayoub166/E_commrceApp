@@ -28,9 +28,9 @@ class ProductModel{
       required this.price,
       required this.title,
       this.date,
-    this.scalePrice,
+      this.scalePrice,
       required this.thumbnail,
-      this.isFeatured,
+      this.isFeatured = false,
       this.brandModel,
       this.description,
       this.categoryID,
@@ -52,35 +52,51 @@ class ProductModel{
       "ScalePrice": scalePrice,
       "Thumbnail": thumbnail,
       "IsFeatured": isFeatured,
-      "BrandModel": brandModel!.toJson(),
+      "BrandModel": brandModel?.toJson(),  // Use the null-aware operator
       "Description": description,
       "CategoryID": categoryID,
       "Images": images ?? [],
-      "ProductType":productType,
-      "ProductAttributes": productAttributes != null ? productAttributes!.map((e) => e.toJson()).toList() : [],
-      "ProductVariation": productVariation != null ? productVariation!.map((e) => e.toJson()).toList() : [],
+      "ProductType": productType,
+      "ProductAttributes": productAttributes != null
+          ? productAttributes!.map((e) => e.toJson()).toList()
+          : [],
+      "ProductVariation": productVariation != null
+          ? productVariation!.map((e) => e.toJson()).toList()
+          : [],
     };
   }
 
-  factory ProductModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
-    final data = document;
+
+  factory ProductModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data();
+    if (data == null) return ProductModel.empty();
+
     return ProductModel(
-      id: data.id,
+      id: document.id, // Use document.id for the ID
       stock: data['Stock'] ?? 0,
       sku: data['SKU'],
-      price: double.parse((data["Price"]??0.0).toString()),
-      title: data["Title"] ,
+      price: double.parse((data["Price"] ?? 0.0).toString()),
+      title: data["Title"] ?? '',
       scalePrice: double.parse((data["ScalePrice"] ?? 0.0).toString()),
       thumbnail: data["Thumbnail"] ?? '',
       isFeatured: data["IsFeatured"] ?? false,
-      brandModel: BrandModel.fromJson(data["BrandModel"]),
+      brandModel: data["BrandModel"] != null ? BrandModel.fromJson(data["BrandModel"]) : null,
       description: data["Description"] ?? '',
       categoryID: data["CategoryID"] ?? '',
-      images: data['Images'] != null ? List<String>.from(data['Images'])  : [] ,
+      images: data['Images'] != null ? List<String>.from(data['Images']) : [],
       productType: data["ProductType"] ?? '',
-      productAttributes: (data['ProductAttributes'] as List<dynamic>).map((e) => ProductAttributeModel.fromJson(e)).toList(),
-      productVariation: (data['ProductVariation'] as List<dynamic>).map((e) => ProductVariationModel.fromJson(e)).toList(),
+      productAttributes: data['ProductAttributes'] != null
+          ? (data['ProductAttributes'] as List<dynamic>)
+          .map((e) => ProductAttributeModel.fromJson(e))
+          .toList()
+          : [],
+      productVariation: data['ProductVariation'] != null
+          ? (data['ProductVariation'] as List<dynamic>)
+          .map((e) => ProductVariationModel.fromJson(e))
+          .toList()
+          : [],
     );
   }
+
 //
 }

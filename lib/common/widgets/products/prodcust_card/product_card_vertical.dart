@@ -3,7 +3,7 @@ import 'package:e_commerce_app/common/widgets/custom_shapes/containers/rounder_c
 import 'package:e_commerce_app/common/widgets/images/t_rounded_image.dart';
 import 'package:e_commerce_app/common/widgets/texts/product_title_text.dart';
 import 'package:e_commerce_app/common/widgets/texts/t_brand_title_text_with_verified_icon.dart';
-import 'package:e_commerce_app/features/shop/controllers/product_controller.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/product_controller.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/screens/product_details/prodcut_detail.dart';
 import 'package:e_commerce_app/utils/enum/enums.dart';

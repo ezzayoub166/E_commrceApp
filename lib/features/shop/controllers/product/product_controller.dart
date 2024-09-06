@@ -24,6 +24,8 @@ class ProductController extends GetxController{
 
   }
 
+
+
   void fetchFeaturedProducts()async{
     try{
       isLoading.value = true;
@@ -33,20 +35,13 @@ class ProductController extends GetxController{
       // Fetch Products
         productRepository.getFeaturedProducts().then((products){
         featuredProducts.assignAll(products);
-        print(featuredProducts.length);
+        print(products.map((item) => print(item.thumbnail)  ));
 
       });
       // print("Fetched products: $products");
-
-      // Assign Products
-      // if (products.isNotEmpty) {
-      //   featuredProducts.assignAll(products);
-      //   print("Featured products assigned: $featuredProducts");
-      // } else {
-      //   print("No featured products found.");
-      // }
-    }catch(errorMessage){
+    }catch(errorMessage) {
       TLoader.errorSnackBar(title: 'Oh snap!',message: errorMessage.toString());
+
     }finally{
       isLoading.value = false;
       print("Fetching process completed. isLoading: ${isLoading.value}");
@@ -54,12 +49,25 @@ class ProductController extends GetxController{
     }
   }
 
+  Future<List<ProductModel>> fetchAllFeaturedProducts()async{
+    try{
+      final products = productRepository.getAllFeaturedProducts();
+      return products;
+
+      // print("Fetched products: $products");
+    }catch(e) {
+      TLoader.errorSnackBar(title: "Oh Snap!",message: e.toString());
+      return[];
+    }
+  }
+
+
   ///Get the product price or price range for variations
   String getProductPrice(ProductModel product){
     double smallestPrice = double.infinity;
     double largestPrice = 0.0;
     //If no variations exist,return the simple price or sale price
-    if(product.productType == ProductType.single.toString()){
+    if(product.productType == 'single'){
       return (product.scalePrice! > 0 ? product.scalePrice : product.price).toString();
     }else {
       //Calculate the smallest and largest prices among variations

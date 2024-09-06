@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/common/widgets/products/prodcust_card/product_card_vertical.dart';
 import 'package:e_commerce_app/common/widgets/shimmer/vertical_product_shimmer.dart';
-import 'package:e_commerce_app/features/shop/controllers/product_controller.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/product_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/Home/widgets/promo_slider.dart';
 import 'package:e_commerce_app/features/shop/screens/all_products/all_products.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
@@ -9,9 +9,14 @@ import 'package:flutter/cupertino.dart';
 import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../utils/constants/consts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProductController());
@@ -40,10 +45,9 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         ///---Heading---
                         TSectionHeader(
-                          title: 'Popular Categories',
+                          title: 'Popular Catetgories',
                           showActionButton: false,
                           textColor: TColors.white,
-                          onPressed: (){Get.to(() => AllProductsScreen());},
                         ),
                         SizedBox(
                           height: TSizes.spaceBtwItems,
@@ -54,14 +58,12 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           height: TSizes.spaceBtwSections,
                         ),
-
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-
 
             /// ---Body---
             Padding(
@@ -72,25 +74,46 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: TSizes.spaceBtwItems),
 
                     /// --- Heading ---
-                    TSectionHeader(title: 'Popular Products'),
+                    TSectionHeader(
+                      title: 'Popular Products',
+                      onPressed: () {
+                        Get.to(() => AllProductsScreen(
+                              title: 'Popular Products',
+                              // query: FirebaseFirestore.instance
+                              //     .collection('Products')
+                              //     .where('IsFeatured', isEqualTo: true)
+                              //     .limit(6),
+                              featureMethod:
+                                  controller.fetchAllFeaturedProducts(),
+                            ));
+                      },
+                    ),
                     SizedBox(height: TSizes.spaceBtwItems),
+
                     /// --- Popular Products ---
                     Obx(
-                      (){
+                      () {
                         // print(controller.featuredProducts);
-                        if (controller.isLoading.value) return TVerticalProductShimmer();
-                        if(controller.featuredProducts.isEmpty){
-                          return Center(child: Text('No Data Found!',style:Theme.of(context).textTheme.bodyMedium));
+                        if (controller.isLoading.value)
+                          return TVerticalProductShimmer();
+                        if (controller.featuredProducts.isEmpty) {
+                          return Center(
+                              child: Text('No Data Found!',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium));
                         }
                         return TGridLayout(
                           itemsCount: controller.featuredProducts.length,
                           mainAxisExtent: 288,
                           itemBuilder: (_, int index) {
-                            return TProductCardVertical(product: controller.featuredProducts[index],);
+                            return TProductCardVertical(
+                              product: controller.featuredProducts[index],
+                            );
                           },
                         );
-                      } ,
+                      },
                     ),
+
                     /// --- Popular Products ---
                   ],
                 ))

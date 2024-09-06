@@ -9,6 +9,7 @@ import 'package:e_commerce_app/features/shop/screens/product_details/widget/prod
 import 'package:e_commerce_app/features/shop/screens/product_details/widget/rating_share_widget.dart';
 import 'package:e_commerce_app/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
+import 'package:e_commerce_app/utils/enum/enums.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -24,7 +25,7 @@ class ProductDetails extends StatelessWidget {
         child: Column(
           children: [
             /// Product Image Slider
-            TProductImageSlider(),
+            TProductImageSlider(product: product,),
 
             /// product Details
             Padding(
@@ -37,10 +38,10 @@ class ProductDetails extends StatelessWidget {
                   /// Rating & Share
                   TRatingAndShare(),
                   /// Price, Title , Stock , Brand
-                  TProductMetaData(),
+                  TProductMetaData(product: product,),
                   /// Attributes
-                  TProductAttributes(),
-                  SizedBox(height: TSizes.spaceBtwSections,),
+                  if(product.productType == 'variable') TProductAttributes(product: product,),
+                  if(product.productType == 'variable') SizedBox(height: TSizes.spaceBtwSections,),
                   /// Check out button
                   SizedBox(width: double.infinity , child: ElevatedButton(onPressed: (){}, child: Text('Check out'))),
                   /// Descreption
@@ -53,8 +54,7 @@ class ProductDetails extends StatelessWidget {
                       trimLines: 2,
                       moreStyle: TextStyle(fontSize: 14 , fontWeight: FontWeight.w800),
                       lessStyle: TextStyle(fontSize: 14 , fontWeight: FontWeight.w800),
-                      'This is product , very like it , and i hope choose the coloe and size and sure to review it , thank you very much , so we can do it and maybe some one , yes yes , yes , plase call me on the number phone and dont forget this'
-
+                      product.description ?? ''
                   ),
 
                   /// Reviwes
@@ -72,10 +72,8 @@ class ProductDetails extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: TSizes.spaceBtwSections,),
-
                 ],
               ),
-
             )
           ],
         ),

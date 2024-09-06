@@ -45,7 +45,7 @@ class CategoryTab extends StatelessWidget {
                 onPressed: () {},
               ),
               SizedBox(height: TSizes.spaceBtwItems),
-              TGridLayout(itemsCount: 4, itemBuilder: (_,index){
+              TGridLayout(itemsCount: 0, itemBuilder: (_,index){
                 return TProductCardVertical(product: ProductModel.empty(),);
               }),
               SizedBox(height: TSizes.spaceBtwSections),

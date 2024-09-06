@@ -356,92 +356,92 @@ class TDummyData {
         ProductAttributeModel(name: 'Size', values: [ 'EU32', 'EU34'])
       ],
     ),
-    ProductModel(
-      id: "006",
-      title: "4 Color caller t.shirt dry fit",
-      stock: 15,
-      price: 3000,
-      isFeatured: false,
-      thumbnail: TImages.productImage60,
-      description:
-          "This is product description for 4 Color caller t.shirt dry fit .there more things that can Added but i am just practicing and nothing else",
-      brandModel: BrandModel(id: "6", name: 'ZARA', image: TImages.zaraLogo),
-      images: [
-        TImages.productImage60,
-        TImages.productImage61,
-        TImages.productImage62,
-        TImages.productImage63
-      ],
-      scalePrice: 30,
-      sku: 'ABR4568',
-      categoryID: "16",
-      productType: 'ProductType.variable',
-      productAttributes: [
-        ProductAttributeModel(
-            name: 'Color', values: ['Green', 'Red', 'Yellow', 'Blue']),
-        ProductAttributeModel(name: 'Size', values: ['EU30', 'EU32', 'EU34'])
-      ],
-      productVariation: [
-        ProductVariationModel(
-          id: '1',
-          stock: 43,
-          price: 134,
-          scalePrice: 122.6,
-          image: TImages.productImage60,
-          description:
-              'This is product description for 4 Color caller t.shirt dry fit ',
-          attributesValues: {'Color': 'Red', 'Size': 'EU34'},
-        ),
-        ProductVariationModel(
-          id: '2',
-          stock: 15,
-          price: 132,
-          image: TImages.productImage60,
-          attributesValues: {'Color': 'Red', 'Size': 'EU32'},
-        ),
-        ProductVariationModel(
-          id: '3',
-          stock: 0,
-          price: 232,
-          image: TImages.productImage61,
-          attributesValues: {'Color': 'Yellow', 'Size': 'EU34'},
-        ),
-        ProductVariationModel(
-          id: '4',
-          stock: 222,
-          price: 232,
-          image: TImages.productImage61,
-          attributesValues: {'Color': 'Yellow', 'Size': 'EU32'},
-        ),
-        ProductVariationModel(
-          id: '5',
-          stock: 0,
-          price: 232,
-          image: TImages.productImage62,
-          attributesValues: {'Color': 'Green', 'Size': 'EU34'},
-        ),
-        ProductVariationModel(
-          id: '6',
-          stock: 11,
-          price: 332,
-          image: TImages.productImage62,
-          attributesValues: {'Color': 'Green', 'Size': 'EU30'},
-        ),
-        ProductVariationModel(
-          id: '7',
-          stock: 0,
-          price: 334,
-          image: TImages.productImage63,
-          attributesValues: {'Color': 'Blue', 'Size': 'EU30'},
-        ),
-        ProductVariationModel(
-          id: '8',
-          stock: 11,
-          price: 332,
-          image: TImages.productImage63,
-          attributesValues: {'Color': 'Blue', 'Size': 'EU34'},
-        ),
-      ],
-    ),
+    // ProductModel(
+    //   id: "006",
+    //   title: "4 Color caller t.shirt dry fit",
+    //   stock: 15,
+    //   price: 3000,
+    //   isFeatured: false,
+    //   thumbnail: TImages.productImage60,
+    //   description:
+    //       "This is product description for 4 Color caller t.shirt dry fit .there more things that can Added but i am just practicing and nothing else",
+    //   brandModel: BrandModel(id: "6", name: 'ZARA', image: TImages.zaraLogo),
+    //   images: [
+    //     TImages.productImage60,
+    //     TImages.productImage61,
+    //     TImages.productImage62,
+    //     TImages.productImage63
+    //   ],
+    //   scalePrice: 30,
+    //   sku: 'ABR4568',
+    //   categoryID: "16",
+    //   productType: 'ProductType.variable',
+    //   productAttributes: [
+    //     ProductAttributeModel(
+    //         name: 'Color', values: ['Green', 'Red', 'Yellow', 'Blue']),
+    //     ProductAttributeModel(name: 'Size', values: ['EU30', 'EU32', 'EU34'])
+    //   ],
+    //   productVariation: [
+    //     ProductVariationModel(
+    //       id: '1',
+    //       stock: 43,
+    //       price: 134,
+    //       scalePrice: 122.6,
+    //       image: TImages.productImage60,
+    //       description:
+    //           'This is product description for 4 Color caller t.shirt dry fit ',
+    //       attributesValues: {'Color': 'Red', 'Size': 'EU34'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '2',
+    //       stock: 15,
+    //       price: 132,
+    //       image: TImages.productImage60,
+    //       attributesValues: {'Color': 'Red', 'Size': 'EU32'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '3',
+    //       stock: 0,
+    //       price: 232,
+    //       image: TImages.productImage61,
+    //       attributesValues: {'Color': 'Yellow', 'Size': 'EU34'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '4',
+    //       stock: 222,
+    //       price: 232,
+    //       image: TImages.productImage61,
+    //       attributesValues: {'Color': 'Yellow', 'Size': 'EU32'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '5',
+    //       stock: 0,
+    //       price: 232,
+    //       image: TImages.productImage62,
+    //       attributesValues: {'Color': 'Green', 'Size': 'EU34'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '6',
+    //       stock: 11,
+    //       price: 332,
+    //       image: TImages.productImage62,
+    //       attributesValues: {'Color': 'Green', 'Size': 'EU30'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '7',
+    //       stock: 0,
+    //       price: 334,
+    //       image: TImages.productImage63,
+    //       attributesValues: {'Color': 'Blue', 'Size': 'EU30'},
+    //     ),
+    //     ProductVariationModel(
+    //       id: '8',
+    //       stock: 11,
+    //       price: 332,
+    //       image: TImages.productImage63,
+    //       attributesValues: {'Color': 'Blue', 'Size': 'EU34'},
+    //     ),
+    //   ],
+    // ),
   ];
 }

@@ -16,7 +16,7 @@ class THomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UserController());
-    // final productRepo = Get.put(ProductRepository());
+    final productRepo = Get.put(ProductRepository());
     return TAppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,11 +48,19 @@ class THomeAppBar extends StatelessWidget {
         ),
         showBackArrow: false,
         actions: [
-          TCartCounterIcon(onPressed: (){
-            Get.to(() => CartScreen());
-          },
-            iconColor: TColors.white,
-          )
+          Obx(() {
+            return productRepo.isLoading.value
+                ? const CircularProgressIndicator() // Show progress indicator
+                : TCartCounterIcon(onPressed: () async{
+              try {
+                await productRepo.uploadOne(TDummyData.products[5]);
+              } catch (e) {
+                print("Upload failed: $e");
+              }
+
+              // You can navigate to another screen or show a success message here
+            });
+          }),
         ],
         leadingPressed: () {});
   }

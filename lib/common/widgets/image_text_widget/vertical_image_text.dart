@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/features/shop/screens/product_details/widget/product_datils_image_slider.dart';
 
 import '../../../utils/constants/consts.dart';
 import '../shimmer/shimmer.dart';
@@ -27,6 +27,7 @@ class TVerticalImageText extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
+      onTap: onTap,
       child: Padding(
         padding: EdgeInsets.only(right: TSizes.spaceBtwItems),
         child: Column(
@@ -40,11 +41,14 @@ class TVerticalImageText extends StatelessWidget {
                 color: backgroundColor ?? (isDark ? TColors.black : TColors.white),
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: Center(
-                child: isNetWorkImage ? CachedNetworkImage(imageUrl: image,fit: fit,color: overlayColor,
+              /*
+              CachedNetworkImage(imageUrl: image,fit: fit,color: overlayColor,
                   progressIndicatorBuilder: (context, url , downloadProgress) => TShimmerEffect(width: 55, height: 55),
                   errorWidget: (context, url , error) => Icon(Icons.error) ,
-                ) : Image(
+                )
+               */
+              child: Center(
+                child: isNetWorkImage ? extendedImageWgt(image) : Image(
                   fit: fit,
                   image: AssetImage(image),
                   color: overlayColor,
@@ -66,7 +70,6 @@ class TVerticalImageText extends StatelessWidget {
           ],
         ),
       ),
-      onTap: onTap,
     );
   }
 }

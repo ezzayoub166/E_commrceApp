@@ -1,6 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
+
+import '../../screens/product_details/widget/product_datils_image_slider.dart';
 
 class ImagesController extends GetxController {
   static ImagesController get instance => Get.find();
@@ -17,12 +18,11 @@ class ImagesController extends GetxController {
     selectedProductImage.value = product.thumbnail;
 
     if(product.images != null){
-      images.assignAll(product.images!);
+      images.assignAll(product.images ?? [TImages.notFound]);
     }
 
     ///Get all images from the product variations if not null
     if(product.productVariation != null || product.productVariation!.isNotEmpty){
-      print(images);
       images.addAll(product.productVariation!.map((variation) => variation.image));
     }
 
@@ -42,7 +42,7 @@ class ImagesController extends GetxController {
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(padding: EdgeInsets.symmetric(vertical: TSizes.defaultSpace * 2 , horizontal: TSizes.defaultSpace),
-              child: CachedNetworkImage(imageUrl: image),
+              child: extendedImageWgt(image),
               ),
               SizedBox(height: TSizes.spaceBtwSections,),
               Align(

@@ -121,7 +121,7 @@ class TProductCardVertical extends StatelessWidget {
                 Flexible(
                     child: Column(children: [
                   if (product.productType == ProductType.single.toString() &&
-                      product.scalePrice! > 0)
+                      product.scalePrice > 0)
                     Padding(
                         padding: const EdgeInsets.only(left: TSizes.sm),
                         child: Text(

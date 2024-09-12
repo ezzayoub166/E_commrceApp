@@ -444,4 +444,19 @@ class TDummyData {
     //   ],
     // ),
   ];
+  
+  static final List<BrandModel> brands = [
+    BrandModel(id: "1", name: "Nike", image: TImages.nikeLogo , isFeatured: true , productCont: 265),
+    BrandModel(id: "2", name: "Acer", image: TImages.acerlogo , isFeatured: false , productCont: 36),
+    BrandModel(id: "3", name: "Addids", image: TImages.adidasLogo , isFeatured: true , productCont: 95),
+    BrandModel(id: "4", name: "Jordan", image: TImages.jordanLogo , isFeatured: false , productCont: 265),
+    BrandModel(id: "5", name: "Puma", image: TImages.pumaLogo , isFeatured: true , productCont: 65),
+    BrandModel(id: "6", name: "ZARA", image: TImages.zaraLogo , isFeatured: false , productCont: 10),
+    BrandModel(id: "7", name: "Apple", image: TImages.appleLogo , isFeatured: true , productCont: 16),
+    BrandModel(id: "8", name: "Herman Miller", image: TImages.hermanMillerLogo , isFeatured: false , productCont: 77),
+    BrandModel(id: "9", name: "Kenwood", image: TImages.kenwoodLogo , isFeatured: false , productCont: 13),
+    BrandModel(id: "10", name: "Ikea", image: TImages.ikeaLogo , isFeatured: false , productCont: 43),
+
+
+  ];
 }

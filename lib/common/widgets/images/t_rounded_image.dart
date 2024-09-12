@@ -35,13 +35,14 @@ class TRoundedImage extends StatelessWidget {
     // final validImageUrl = TProductImageSlider.validateURL(imageUrl) ? imageUrl : 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png';
 
     // Check if imageUrl is valid, otherwise use a fallback placeholder
-    final validImageUrl = Uri.tryParse(imageUrl)?.hasAbsolutePath == true
-        ? imageUrl
-        : 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png';
+    // final validImageUrl = Uri.tryParse(imageUrl)?.hasAbsolutePath == true
+    //     ? imageUrl
+    //     : 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png';
+    //
+    // if (!Uri.parse(imageUrl).isAbsolute || imageUrl.isEmpty) {
+    //   print('Invalid image URL: $imageUrl');
+    final String validImageUrl = validateURL(imageUrl) ? imageUrl : TImages.notFound;
 
-    if (!Uri.parse(imageUrl).isAbsolute || imageUrl.isEmpty) {
-      print('Invalid image URL: $imageUrl');
-    }
 
     return GestureDetector(
       onTap: onPressed,
@@ -59,7 +60,7 @@ class TRoundedImage extends StatelessWidget {
           child:
           // Image.network(validImageUrl)
 
-          isNetworkImage  ? ExtendedImage.network(
+          isNetworkImage ? ExtendedImage.network(
             validImageUrl,
             cache: true,
             loadStateChanged: (ExtendedImageState state) {

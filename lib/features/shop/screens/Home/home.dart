@@ -9,17 +9,12 @@ import 'package:flutter/cupertino.dart';
 import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../utils/constants/consts.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
   Widget build(BuildContext context) {
-    var controller = Get.put(ProductController());
+    var controller = ProductController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -79,12 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         Get.to(() => AllProductsScreen(
                               title: 'Popular Products',
-                              // query: FirebaseFirestore.instance
-                              //     .collection('Products')
-                              //     .where('IsFeatured', isEqualTo: true)
-                              //     .limit(6),
-                              featureMethod:
-                                  controller.fetchAllFeaturedProducts(),
+                              query: FirebaseFirestore.instance
+                                  .collection('Products')
+                                  .where('IsFeatured', isEqualTo: true)
+                                  .limit(6),
+                              // featureMethod:
+                              //     controller.fetchAllFeaturedProducts(),
                             ));
                       },
                     ),

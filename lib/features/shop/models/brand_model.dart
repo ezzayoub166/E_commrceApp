@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/utils/constants/consts.dart';
+
 class BrandModel {
   String id;
   String name;
@@ -30,6 +32,17 @@ class BrandModel {
   factory BrandModel.fromJson(Map<String, dynamic> document) {
     final data = document;
     if (data.isEmpty) return BrandModel.empty();
+    return BrandModel(
+        id: data['ID'] ?? '',
+        name: data['Name'] ?? '',
+        image: data['Image'] ?? '',
+        isFeatured: data['IsFeatured'] ?? false,
+        productCont: data['ProductCont'] ?? 0);
+  }
+
+  factory BrandModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data();
+    if (data == null) return BrandModel.empty();
     return BrandModel(
         id: data['ID'] ?? '',
         name: data['Name'] ?? '',

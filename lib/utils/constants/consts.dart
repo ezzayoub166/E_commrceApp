@@ -48,3 +48,4 @@ export 'package:e_commerce_app/utils/exceptions/platform_exceptions.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:flutter/services.dart';
 export 'package:e_commerce_app/features/shop/models/product_model.dart';
+export  'package:e_commerce_app/features/shop/models/brand_model.dart';

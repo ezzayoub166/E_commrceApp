@@ -2,7 +2,11 @@ import 'package:e_commerce_app/common/widgets/app_bar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/app_bar/tabbar.dart';
 import 'package:e_commerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:e_commerce_app/common/widgets/shimmer/brand_shimmer.dart';
+import 'package:e_commerce_app/features/shop/controllers/brand_controller.dart';
 import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
+import 'package:e_commerce_app/features/shop/screens/brand/all_brand.dart';
+import 'package:e_commerce_app/features/shop/screens/brand/brand_products.dart';
 import 'package:e_commerce_app/features/shop/screens/store/widgets/category_tab.dart';
 import '../../../../common/widgets/brand/brand_card.dart';
 import '../../../../utils/constants/consts.dart';
@@ -14,7 +18,9 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
+    final brandController = Get.put(BrandController()); 
     final categories = CategoryController.instance.featuredCategories;
+
     return DefaultTabController(
       length: categories.length,
       child: Scaffold(
@@ -58,16 +64,30 @@ class StoreScreen extends StatelessWidget {
                           /// Featured Brands
                           TSectionHeader(
                             title: 'Featured Brands ',
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => AllBrandScreen());
+                            },
                           ),
                           SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
-                          TGridLayout(
-                              itemsCount: 4,
-                              mainAxisExtent: 80,
-                              itemBuilder: (_, int index) {
-                                return TBrandCard(showBorder: false,);
-                              })
+                          Obx(
+                            ()  {
+                              if(brandController.isLoading.value)return TBrandShimmer();
+                              if(brandController.featuredBrands.isEmpty){
+                                return Center(child: Text("Not Found",
+                                style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white)),
+                                );
+                              }
+                              return TGridLayout(
+                                itemsCount: brandController.featuredBrands.length,
+                                mainAxisExtent: 80,
+                                itemBuilder: (_, int index) {
+                                  final brand = brandController.featuredBrands[index];
+                                  return TBrandCard(showBorder: false,brandModel: brand,
+                                  onTap: () => Get.to(() => BrandProductsScreen(brand: brand)));
+                                });
+                            }
+                          )
                         ],
                       ),
                     ),

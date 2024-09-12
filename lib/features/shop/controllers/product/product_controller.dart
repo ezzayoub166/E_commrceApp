@@ -33,11 +33,10 @@ class ProductController extends GetxController{
       // await Future.delayed(Duration(seconds: 2));
 
       // Fetch Products
-        productRepository.getFeaturedProducts().then((products){
+        final products = await productRepository.getFeaturedProducts();
         featuredProducts.assignAll(products);
-        print(products.map((item) => print(item.thumbnail)  ));
-
-      });
+        isLoading.value = false;
+      
       // print("Fetched products: $products");
     }catch(errorMessage) {
       TLoader.errorSnackBar(title: 'Oh snap!',message: errorMessage.toString());

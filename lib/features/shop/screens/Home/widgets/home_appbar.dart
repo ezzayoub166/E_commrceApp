@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/data/repositories/brand_repository.dart';
 import 'package:e_commerce_app/data/repositories/product_repository.dart';
 import 'package:e_commerce_app/features/personlization/controllers/user_controller/user_controller.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
@@ -16,7 +17,8 @@ class THomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UserController());
-    final productRepo = Get.put(ProductRepository());
+    //final productRepo = Get.put(ProductRepository());
+    final brandRepo = Get.put(BrandRepository());
     return TAppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,11 +51,11 @@ class THomeAppBar extends StatelessWidget {
         showBackArrow: false,
         actions: [
           Obx(() {
-            return productRepo.isLoading.value
+            return brandRepo.isLoading.value
                 ? const CircularProgressIndicator() // Show progress indicator
                 : TCartCounterIcon(onPressed: () async{
               try {
-                await productRepo.uploadOne(TDummyData.products[5]);
+                await brandRepo.uploadDummyData(TDummyData.brands);
               } catch (e) {
                 print("Upload failed: $e");
               }

@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/common/widgets/shimmer/shimmer.dart';
+import 'package:e_commerce_app/features/shop/screens/product_details/widget/product_datils_image_slider.dart';
 
 import '../../../utils/constants/consts.dart';
 
@@ -36,11 +36,15 @@ class TCircularImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(40)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(40),
-        child: Center(
-          child: isNetworkImage ? CachedNetworkImage(imageUrl: image,fit: fit,color: overlayColor,
+        /*
+        not used it ....
+        CachedNetworkImage(imageUrl: image,fit: fit,color: overlayColor,
             progressIndicatorBuilder: (context, url , downloadProgress) => TShimmerEffect(width: 55, height: 55),
             errorWidget: (context, url , error) => Icon(Icons.error) ,
-          ) : Image(
+          )
+         */
+        child: Center(
+          child: isNetworkImage ? extendedImageWgt(image) : Image(
             fit: fit,
             image: AssetImage(image),
             color: overlayColor,

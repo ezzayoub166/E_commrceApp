@@ -14,24 +14,25 @@ class ProductRepository extends GetxController {
 
   var isLoading = false.obs; // Observable loading state
 
-
-
-
-
   //Get Limited featured products
-  Future<List<ProductModel>> getFeaturedProducts()async{
+  Future<List<ProductModel>> getFeaturedProducts() async {
     try {
-
-      final snapshot = await _db.collection('Products').where(
-          'IsFeatured', isEqualTo: true).limit(4).get();
+      final snapshot = await _db
+          .collection('Products')
+          .where('IsFeatured', isEqualTo: true)
+          .limit(4)
+          .get();
       List<ProductModel> products = snapshot.docs.map((doc) {
         return ProductModel.fromSnapshot(doc);
       }).toList();
 
       return products;
-    }catch(error){
-     rethrow;
-      return [];
+    } on FirebaseException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } on PlatformException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } catch (e) {
+      throw 'something went wrong. while Fetching Banners';
     }
 
     // }on FirebaseException catch(error){
@@ -44,36 +45,39 @@ class ProductRepository extends GetxController {
   }
 
   //Get Limited featured products
-  Future<List<ProductModel>> getAllFeaturedProducts()async{
+  Future<List<ProductModel>> getAllFeaturedProducts() async {
     try {
-
-      final snapshot = await _db.collection('Products').where(
-          'IsFeatured', isEqualTo: true).get();
-      List<ProductModel> products = snapshot.docs.map((doc) {
-        return ProductModel.fromSnapshot(doc);
-      }).toList();
-
+      final querySnapshot = await _db
+          .collection('Products')
+          .where('IsFeatured', isEqualTo: true)
+          .get();
+      final products = querySnapshot.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
       return products;
-   }on FirebaseException catch(error){
-     throw TFirebaseException(error.code).message;
-   }on PlatformException catch(error){
-     throw TFirebaseException(error.code).message;
-   }finally{
-     throw 'Somethings went wrong , Please try again';
-   }
+    } on FirebaseException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } on PlatformException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } catch (e) {
+      throw 'something went wrong. while Fetching Banners';
+    }
   }
 
   //Get Products based on brand
-  Future<List<ProductModel>> fetchProductsByQuery(Query query)async{
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
     try {
-
       final querySnapshot = await query.get();
-      final List<ProductModel> productsList = querySnapshot.docs.map((doc) => ProductModel.fromQuerySnapshot(doc)).toList();
+      final List<ProductModel> productsList = querySnapshot.docs
+          .map((doc) => ProductModel.fromQuerySnapshot(doc))
+          .toList();
       return productsList;
-
-    }catch(error){
-      rethrow;
-      return [];
+    } on FirebaseException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } on PlatformException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } catch (e) {
+      throw 'something went wrong. while Fetching Banners';
     }
 
     // }on FirebaseException catch(error){
@@ -85,8 +89,31 @@ class ProductRepository extends GetxController {
     // }
   }
 
-
-
+  Future<List<ProductModel>> getProductsForBrand(
+      {required String BrnadID, int limit = -1}) async {
+    try {
+      final querySnapshot = limit == -1
+          ? await _db
+              .collection("Products")
+              .where("BrandModel.ID", isEqualTo: BrnadID)
+              .get()
+          : await _db
+              .collection("Products")
+              .where("BrandModel.ID", isEqualTo: BrnadID)
+              .limit(limit)
+              .get();
+      final products = querySnapshot.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
+      return products;
+    } on FirebaseException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } on PlatformException catch (error) {
+      throw TFirebaseException(error.code).message;
+    } catch (e) {
+      throw 'Somethings went wrong , Please try again';
+    }
+  }
 
   Future<void> uploadOne(ProductModel product) async {
     try {
@@ -101,9 +128,11 @@ class ProductRepository extends GetxController {
 
       // Upload product images in parallel (if any)
       if (product.images != null && product.images!.isNotEmpty) {
-        final List<Future<String>> uploadFutures = product.images!.map((image) async {
+        final List<Future<String>> uploadFutures =
+            product.images!.map((image) async {
           final assetsImage = await storage.getImageDataFromAssets(image);
-          return await storage.uploadImageData('Products/Images', assetsImage, image);
+          return await storage.uploadImageData(
+              'Products/Images', assetsImage, image);
         }).toList();
 
         final imagesUrls = await Future.wait(uploadFutures);
@@ -113,8 +142,10 @@ class ProductRepository extends GetxController {
 
       // Upload variation images (if product type is variable)
       if (product.productType == ProductType.variable.toString()) {
-        final List<Future<void>> variationFutures = product.productVariation!.map((variation) async {
-          final variationImage = await storage.getImageDataFromAssets(variation.image);
+        final List<Future<void>> variationFutures =
+            product.productVariation!.map((variation) async {
+          final variationImage =
+              await storage.getImageDataFromAssets(variation.image);
           final variationImageUrl = await storage.uploadImageData(
               'Products/Images', variationImage, variation.image);
           variation.image = variationImageUrl;
@@ -140,8 +171,6 @@ class ProductRepository extends GetxController {
           title: 'UPLOAD DONE', message: "${product.title} is uploaded");
     }
   }
-
-
 
   //Upload object by object
   // Future<void> uploadOne(ProductModel product)async{
@@ -212,7 +241,8 @@ class ProductRepository extends GetxController {
 
       //Loop
       for (var product in products) {
-        final thumbnail =  await storage.getImageDataFromAssets(product.thumbnail);
+        final thumbnail =
+            await storage.getImageDataFromAssets(product.thumbnail);
 
         //upload image and get its url
         final url = await storage.uploadImageData(
@@ -238,11 +268,11 @@ class ProductRepository extends GetxController {
         }
 
         //upload Variation Images
-        if(product.productType == ProductType.variable.toString()){
+        if (product.productType == ProductType.variable.toString()) {
           for (var variation in product.productVariation!) {
             //get image data link from local asset
             final imagesAsset =
-            await storage.getImageDataFromAssets(variation.image);
+                await storage.getImageDataFromAssets(variation.image);
 
             //upload image and get its url
             final url = await storage.uploadImageData(
@@ -262,9 +292,7 @@ class ProductRepository extends GetxController {
     } catch (e) {
       throw e.toString();
     } finally {
-
       isLoading.value = false; // Stop loading
-
     }
   }
 }

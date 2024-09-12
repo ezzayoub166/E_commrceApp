@@ -6,11 +6,13 @@ import '../texts/t_brand_title_text_with_verified_icon.dart';
 
 class TBrandCard extends StatelessWidget {
   const TBrandCard({
-    super.key, required this.showBorder, this.onTap,
+    
+    super.key, required this.showBorder, this.onTap, required this.brandModel,
   });
 
   final bool showBorder ;
   final void Function()? onTap ;
+  final BrandModel brandModel;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,8 @@ class TBrandCard extends StatelessWidget {
           children: [
             ///Icon
             TCircularImage(
-              image: TImages.clothIcon,
-              isNetworkImage: false,
+              image: brandModel.image,
+              isNetworkImage: true,
               backgroundColor: Colors.transparent,
               overlayColor: isDark ? TColors.white : TColors.black,
             ),
@@ -39,11 +41,11 @@ class TBrandCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TBrandTitleTextWithVerifiedIcon(
-                    title: 'Nike',
+                    title: brandModel.name,
                     brandTextSize: TextSizes.large,
                   ),
                   Text(
-                    '256 products with Tow Sizes',
+                    '${brandModel.productCont ?? 0 }products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   )

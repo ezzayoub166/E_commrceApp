@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/features/shop/controllers/product/images_controller.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:extended_image/extended_image.dart';
@@ -129,8 +128,6 @@ import '../../../../../utils/constants/consts.dart';
 //   }
 // }
 
-
-
 class TProductImageSlider extends StatelessWidget {
   const TProductImageSlider({
     super.key,
@@ -144,11 +141,12 @@ class TProductImageSlider extends StatelessWidget {
   }
 
   static bool validateURL(String? input) {
-    if (stringHasValue(input)) {
-      return Uri.parse(input!).hasAbsolutePath;
-    } else {
-      return false;
+    if (input != null && input.isNotEmpty) {
+      final uri = Uri.tryParse(input);
+      return uri != null &&
+          (uri.isAbsolute && (uri.scheme == 'http' || uri.scheme == 'https'));
     }
+    return false;
   }
 
   @override
@@ -156,8 +154,7 @@ class TProductImageSlider extends StatelessWidget {
     final isDark = THelperFunctions.isDarkMode(context);
     final controller = Get.put(ImagesController());
     final images = controller.getAllProductImages(product);
-
-
+    print(images);
 
     return TCurvedEdgeWidget(
       child: Container(
@@ -172,8 +169,13 @@ class TProductImageSlider extends StatelessWidget {
                 child: Center(
                   child: Obx(() {
                     final selectedImage = controller.selectedProductImage.value;
-                    const notFoundImage = 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png';
-                    final imageUrl = validateURL(selectedImage) ? selectedImage : notFoundImage;
+                    const notFoundImage =
+                        'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png';
+                    final imageUrl = validateURL(selectedImage)
+                        ? selectedImage
+                        : notFoundImage;
+                        print('Loading image: $imageUrl'); // Debugging - Print the URL being passed to ExtendedImage
+
 
                     return GestureDetector(
                       onTap: () {
@@ -220,10 +222,14 @@ class TProductImageSlider extends StatelessWidget {
                       isNetworkImage: true,
                       background: isDark ? TColors.dark : TColors.white,
                       border: Border.all(
-                        color: controller.selectedProductImage.value == images[index] ? TColors.primary : Colors.transparent,
+                        color: controller.selectedProductImage.value ==
+                                images[index]
+                            ? TColors.primary
+                            : Colors.transparent,
                         width: 2,
                       ),
-                      onPressed: () => controller.selectedProductImage.value = images[index],
+                      onPressed: () =>
+                          controller.selectedProductImage.value = images[index],
                       padding: EdgeInsets.all(TSizes.sm),
                       imageUrl: images[index],
                     );
@@ -233,7 +239,7 @@ class TProductImageSlider extends StatelessWidget {
                       width: TSizes.spaceBtwItems,
                     );
                   },
-                  itemCount: images.length ,
+                  itemCount: 4,
                 ),
               ),
             ),
@@ -253,4 +259,36 @@ class TProductImageSlider extends StatelessWidget {
   }
 }
 
+Widget extendedImageWgt(imageUrl) {
+  if (imageUrl == null || imageUrl.isEmpty) {
+    imageUrl = TImages.notFound; // Provide a default image
+  }
 
+  return ExtendedImage.network(
+    imageUrl,
+    cache: true,
+    clearMemoryCacheIfFailed :false,
+    loadStateChanged: (ExtendedImageState state) {
+      switch (state.extendedImageLoadState) {
+        case LoadState.loading:
+          return const CircularProgressIndicator.adaptive();
+        case LoadState.completed:
+          return state.completedWidget;
+        case LoadState.failed:
+          return Image.asset(
+            'assets/images/error404.png',
+            fit: BoxFit.cover,
+          );
+      }
+    },
+  );
+}
+
+bool validateURL(String? input) {
+  if (input != null && input.isNotEmpty) {
+    final uri = Uri.tryParse(input);
+    return uri != null &&
+        (uri.isAbsolute && (uri.scheme == 'http' || uri.scheme == 'https'));
+  }
+  return false;
+}

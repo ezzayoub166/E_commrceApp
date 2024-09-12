@@ -32,9 +32,9 @@ class TProductMetaData extends StatelessWidget {
             ),
             SizedBox(width: TSizes.spaceBtwItems),
             ///Price
-            if(product.productType == 'single' && product.scalePrice! > 0)
+            if(product.productType == 'single' && product.scalePrice > 0)
               Text('\$${product.price}' ,style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough),),
-            if(product.productType == 'single' && product.scalePrice! > 0) SizedBox(width: TSizes.spaceBtwItems,),
+            if(product.productType == 'single' && product.scalePrice > 0) SizedBox(width: TSizes.spaceBtwItems,),
             TProductPriceText(price: controller.getProductPrice(product),isLarge: true, )
 
           ],
@@ -61,7 +61,7 @@ class TProductMetaData extends StatelessWidget {
                 image: product.brandModel != null ? product.brandModel!.image : 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
               width: 32,
               height: 32,
-              isNetworkImage: true,
+              isNetworkImage: false,
               overlayColor: darkMode ? TColors.white : TColors.black,
             ),
             TBrandTitleTextWithVerifiedIcon(title: product.brandModel != null ? product.brandModel!.name : ''),

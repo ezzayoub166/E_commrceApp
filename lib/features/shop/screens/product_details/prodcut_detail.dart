@@ -1,6 +1,4 @@
-import 'package:e_commerce_app/common/widgets/app_bar/appbar.dart';
-import 'package:e_commerce_app/common/widgets/icon/t_cricular_icon.dart';
-import 'package:e_commerce_app/common/widgets/images/t_rounded_image.dart';
+
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/screens/product_details/widget/bottom_add_to_cart_widget.dart';
 import 'package:e_commerce_app/features/shop/screens/product_details/widget/product_attributes.dart';
@@ -9,7 +7,6 @@ import 'package:e_commerce_app/features/shop/screens/product_details/widget/prod
 import 'package:e_commerce_app/features/shop/screens/product_details/widget/rating_share_widget.dart';
 import 'package:e_commerce_app/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:e_commerce_app/utils/constants/consts.dart';
-import 'package:e_commerce_app/utils/enum/enums.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetails extends StatelessWidget {

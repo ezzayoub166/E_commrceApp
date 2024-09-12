@@ -152,6 +152,9 @@ class TImages {
   //Profile
   static const String user = "assets/images/content/user.png";
 
+  //Not Found
+  static const String notFound = "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png";
+
   // -- Payment Methods
   static const String applePay = "assets/icons/payment_methods/apple-pay.png";
   static const String googlePay = "assets/icons/payment_methods/google-pay.png";
